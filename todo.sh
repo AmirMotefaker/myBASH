@@ -18,6 +18,10 @@ case $1 in
       title=$2
       shift 2
     elif [ "${mode}" == 2 ]; then
+      if [[ $2 != 'L' && $2 != 'M' && $2 != 'H' ]]; then
+        echo "Option -p|--priority Only Accept L|M|H"
+        exit
+      fi
       priority=$2
       shift 2
     fi
