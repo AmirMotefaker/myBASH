@@ -18,7 +18,7 @@ case $1  in
         shift
         while [ $1 ]
         do
-            sub=$(($1 - sub))
+            sub=$((sub - $1))
             shift
         done
         echo "subtraction of your two numbers are $sub"
@@ -42,9 +42,23 @@ case $1  in
         shift
         while [ $1 ]
         do
-            dev=$(($1 / dev))
+            dev=$((dev / $1))
             shift
         done
         echo "division of your two numbers are $dev"
     ;;
 esac
+
+
+# Output
+# $ bash calculator_advanced2.sh / 128 4 2 2 2
+# division of your two numbers are 4
+
+# $ bash calculator_advanced2.sh - 2 4 9 1
+# subtraction of your two numbers are -12
+
+# $ bash calculator_advanced2.sh x 3 -1 2 4
+# multiplication of your two numbers are -24
+
+# $ bash calculator_advanced2.sh + 9 0 -4 5 12 3 -13
+# addition of your two numbers are 12
