@@ -29,3 +29,34 @@ case $1 in
   echo "0,$priority,\"$title\"" >>tasks.csv
   ;;
 esac
+
+
+#! /bin/bash
+
+# Tasks File
+file=tasks.csv
+
+# Get Tasks from Tasks File and List Them
+function _list {
+  number=1
+  cat "$file" | awk -F, '{print $1" | "$2" | "$3}' | while read line; do
+    pretty_line=$(printf "%d | %s" "$number" "$line")
+    echo "$pretty_line"
+    number=$((number+1))
+  done
+}
+
+# Make Tasks File Empty
+function _clear {
+  echo -n "" > "$file"
+  echo 'Tasks Cleared!'
+}
+
+case $1 in
+"list")
+  _list;;
+"clear")
+  _clear;;
+*)
+  echo "Command Not Supported!";;
+esac
