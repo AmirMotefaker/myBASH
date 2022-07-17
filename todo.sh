@@ -2,6 +2,7 @@
 
 # ToDo List
 
+
 #! /bin/bash
 
 # Tasks File
@@ -14,9 +15,25 @@ function _add {
   echo "Task '$2' Added to List."
 }
 
+# Get Tasks from Tasks File and List Them
+function _list {
+  number=1
+  cat "$file" | awk -F, '{print $1" | "$2" | "$3}' | while read line; do
+    pretty_line=$(printf "%d | %s" "$number" "$line")
+    echo "$pretty_line"
+    number=$((number+1))
+  done
+}
+
+# Make Tasks File Empty
+function _clear {
+  echo -n "" > "$file"
+  echo 'Tasks Cleared!'
+}
+
 case $1 in
 "add")
-  while [ -n "$2" ]
+while [ -n "$2" ]
   do
     case "$2" in
       -t | --title)
@@ -47,27 +64,6 @@ case $1 in
     priority="L"
   fi
   _add "$priority" "$name";;
-*)
-  echo "Command Not Supported!";;
-esac
-
-# Get Tasks from Tasks File and List Them
-function _list {
-  number=1
-  cat "$file" | awk -F, '{print $1" | "$2" | "$3}' | while read line; do
-    pretty_line=$(printf "%d | %s" "$number" "$line")
-    echo "$pretty_line"
-    number=$((number+1))
-  done
-}
-
-# Make Tasks File Empty
-function _clear {
-  echo -n "" > "$file"
-  echo 'Tasks Cleared!'
-}
-
-case $1 in
 "list")
   _list;;
 "clear")
