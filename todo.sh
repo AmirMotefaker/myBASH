@@ -2,7 +2,6 @@
 
 # ToDo List
 
-
 #! /bin/bash
 
 # Tasks File
@@ -14,6 +13,7 @@ function _add {
   echo "0,$1,\"$2\"" >> "$file"
   echo "Task '$2' Added to List."
 }
+
 
 # Get Tasks from Tasks File and List Them
 function _list {
@@ -31,9 +31,47 @@ function _clear {
   echo 'Tasks Cleared!'
 }
 
+
+# Make Task Done by ID (ID is Line Number)
+function _done {
+  num=$1 # Task ID
+  lines_number=$(wc -l "$file") # Get File Length
+  if [[ $num > $lines_number ]]; then
+    echo "Task '${num}' Not Exists!"
+    exit
+  fi
+  tmp_line=$(sed -n "$num"p "$file") # Get Specific Line of File
+  line="1"${tmp_line:1}
+  sed -i "$num""s/$tmp_line/$line/" "$file"
+  echo "Task ${line:4} Done."
+}
+
+# Find Task by Title and Return Tasks
+function _find {
+  grep -n "$1" "$file" | while read line; do
+    number=${line:0:1}
+    done=${line:2:1}
+    priority=${line:4:1}
+    task=${line:6}
+    pretty_line=$(printf "%d | %d | %s | %s" "$number" "$done" "$priority" "$task")
+    echo "$pretty_line"
+  done
+#  With Loop
+#  number=1
+#  cat "$file" | while read line; do
+#    array=${line:3}
+#    # Regex is : [[ "$array" =~ .*"$1".* ]]
+#    if [[ "$array" == *"$1"* ]]; then
+#      echo "$number" "$line"
+#    fi
+#    number=$((number+1))
+#  done
+}
+
+
 case $1 in
 "add")
-while [ -n "$2" ]
+  while [ -n "$2" ]
   do
     case "$2" in
       -t | --title)
@@ -64,10 +102,15 @@ while [ -n "$2" ]
     priority="L"
   fi
   _add "$priority" "$name";;
+
 "list")
   _list;;
 "clear")
   _clear;;
+"done")
+  _done;;
+"find")
+  _find;;
 *)
   echo "Command Not Supported!";;
 esac
