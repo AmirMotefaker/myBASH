@@ -108,9 +108,9 @@ case $1 in
 "clear")
   _clear;;
 "done")
-  _done;;
+  _done "$2";;
 "find")
-  _find;;
+  _find "$2";;
 *)
   echo "Command Not Supported!";;
 esac
