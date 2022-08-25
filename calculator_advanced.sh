@@ -1,3 +1,5 @@
+# Code by @AmirMotefaker
+
 #!/bin/bash
 
 if [[ $# -eq 2 ]] ; then
