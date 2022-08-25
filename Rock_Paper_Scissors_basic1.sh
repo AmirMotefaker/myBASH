@@ -1,5 +1,7 @@
 # Code by @AmirMotefaker
 
+# Code by @AmirMotefaker
+
 #! /bin/bash
 
 # Rock Paper Scissors - Basic
