@@ -1,3 +1,5 @@
+# Code by @AmirMotefaker
+
 # Solution me1
 #! /bin/bash
 
