@@ -1,3 +1,5 @@
+# Code by @AmirMotefaker
+
 #!/bin/bash
 
 echo "addition of your two numbers are $(($1 + $2))"
