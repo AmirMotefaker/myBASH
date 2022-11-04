@@ -1,3 +1,3 @@
 # myBASH
 
->> My BASH script codes
+>> y BASH script codes
